@@ -41,3 +41,9 @@
     - make.x86_64
     - sysstat.x86_64
 
+- name: oracle install directory
+  file: path={{item}} owner=oracle group=oinstall mode=0755 state=directory
+  with_items:
+    - /opt/oracle
+    - /opt/oraInventory
+
