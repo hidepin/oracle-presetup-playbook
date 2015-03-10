@@ -60,6 +60,8 @@
 - name: /etc/profile.d/enableoracle.sh settings
   template: src=enableoracle.sh.j2 dest=/etc/profile.d/enableoracle.sh owner=root group=root mode=0644
 
-- name: db.rsp settings
-  template: src=db.rsp.j2 dest=/home/oracle/db.rsp owner=oracle group=oinsall mode=0644
-
+- name: response file settings
+  template: src={{item}}.j2 dest=/home/oracle/{{item}} owner=oracle group=oinstall mode=0644
+  with_items:
+    - db.rsp
+    - netca.rsp
