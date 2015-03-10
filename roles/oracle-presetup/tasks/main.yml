@@ -54,3 +54,6 @@
 - name: limits.conf settings
   template: src=limits.conf.j2 dest=/etc/security/limits.conf owner=root group=root mode=0644
 
+- name: /etc/pam.d/login settings
+  template: src=etc_pam.d_login.j2 dest=/etc/pam.d/login owner=root group=root mode=0644
+
