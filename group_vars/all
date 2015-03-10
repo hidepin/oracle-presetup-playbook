@@ -1,0 +1,10 @@
+ansible_ssh_user: root
+sudo: no
+colon: ":"
+oracle_group:
+  - oinstall
+  - dba
+oracle_user:
+  # user/password="oracle/oracle123"
+  - { name: 'oracle', password: '$1$peaKxDgL$kmnXC5xCmpjd9wey7uzSq/', group: 'oinstall', groups: 'dba' }
+
