@@ -47,3 +47,7 @@
     - /opt/oracle
     - /opt/oraInventory
 
+- name: sysctl.conf settings
+  template: src=sysctl.conf.j2 dest=/etc/sysctl.conf owner=root group=root mode=0644
+  notify: restart sysctl
+ 

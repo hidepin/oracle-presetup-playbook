@@ -1,0 +1,5 @@
+---
+# file: roles/oracle-presetup/handlers/main.yml
+- name: restart sysctl
+  shell: sysctl -p
+
