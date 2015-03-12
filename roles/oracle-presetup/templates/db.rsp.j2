@@ -10,7 +10,7 @@ oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_sch
 # 2. INSTALL_DB_AND_CONFIG
 # 3. UPGRADE_DB
 #-------------------------------------------------------------------------------
-oracle.install.option=INSTALL_DB_SWONLY
+oracle.install.option=INSTALL_DB_AND_CONFIG
 
 #-------------------------------------------------------------------------------
 # This variable holds the hostname of the system as set by the user. 
@@ -23,7 +23,7 @@ ORACLE_HOSTNAME={{ansible_fqdn}}
 #-------------------------------------------------------------------------------
 # Unix group to be set for the inventory directory.  
 #-------------------------------------------------------------------------------
-UNIX_GROUP_NAME=oinstall
+UNIX_GROUP_NAME=dba
 
 #-------------------------------------------------------------------------------
 # Inventory location.
@@ -59,7 +59,7 @@ INVENTORY_LOCATION=/opt/oraInventory
 #
 # Example : SELECTED_LANGUAGES=en,fr,ja
 #-------------------------------------------------------------------------------
-SELECTED_LANGUAGES=ja,en
+SELECTED_LANGUAGES=en,ja
 
 #-------------------------------------------------------------------------------
 # Complete path of the Oracle Home  
@@ -135,12 +135,12 @@ oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
 #-------------------------------------------------------------------------------
 # Global Database Name 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.globalDBName=
+oracle.install.db.config.starterdb.globalDBName=orcl
 
 #-------------------------------------------------------------------------------
 # The Starter Database SID 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.SID=
+oracle.install.db.config.starterdb.SID=orcl
 
 #-------------------------------------------------------------------------------
 # Database character set
@@ -154,21 +154,21 @@ oracle.install.db.config.starterdb.SID=
 #  KO16MSWIN949, ZHS16GBK, TH8TISASCII, ZHT32EUC, ZHT16MSWIN950,
 #  ZHT16HKSCS, WE8ISO8859P9, TR8MSWIN1254, VN8MSWIN1258
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.characterSet=
+oracle.install.db.config.starterdb.characterSet=AL32UTF8
 #-------------------------------------------------------------------------------
 # Specify the total memory allocation for the database. (in MB)
 # Value should be at least 256 MB, and should not exceed the  
 # total physical memory available on the system.
 # Example: oracle.install.db.config.starterdb.memoryLimit=40
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.memoryLimit=
-oracle.install.db.config.starterdb.memoryOption=false
+oracle.install.db.config.starterdb.memoryLimit=751
+oracle.install.db.config.starterdb.memoryOption=true
 
 #-------------------------------------------------------------------------------
 # This variable controls whether to load Example Schemas onto
 # the starter database or not.
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.installExampleSchemas=false
+oracle.install.db.config.starterdb.installExampleSchemas=true
 
 #-------------------------------------------------------------------------------
 # This include enabling audit settings, configuring password  
@@ -231,7 +231,7 @@ oracle.install.db.config.starterdb.automatedBackup.ospwd=
 # - FILE_SYSTEM_STORAGE
 # - ASM_STORAGE
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.storageType=
+oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
 
 #-------------------------------------------------------------------------------
 # Database file location:                  
@@ -239,7 +239,7 @@ oracle.install.db.config.starterdb.storageType=
 #
 # Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=
+oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oracle/oradata
 
 #-------------------------------------------------------------------------------
 # Backup and recovery location 
