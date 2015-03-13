@@ -1,23 +1,20 @@
 # oracle-presetup-playbook
 
-1. rebootする
-   # reboot
+1. /tmpにoracleのファイルを配置する。(oracleユーザで読めるように)
 
-2. /tmpにoracleのファイルを配置する。(oracleユーザで読めるように)
-
-3. /home/oracleにファイルを展開する
+2. /home/oracleにファイルを展開する
    $ cd /home/oracle
    $ unzip /tmp/linux.x64_11gR2_database_1of2.zip
    $ unzip /tmp/linux.x64_11gR2_database_2of2.zip
 
-4. RHEL6用の設定を実行する
+3. RHEL6用の設定を実行する
    $ vi /home/oracle/database/stage/cvu/cv/admin/cvu_config
    ============================================================
    ###CV_ASSUME_DISTID=OEL4 <- ###を追記する
    CV_ASSUME_DISTID=OEL6 <- 追記する
    ============================================================
 
-5. Oracleインストーラーの文字化けパッチを取得する。
+4. Oracleインストーラーの文字化けパッチを取得する。
    (http://tamasaban.blog.fc2.com/blog-entry-39.html参照)
    $ wget http://sourceforge.jp/frs/redir.php\?m=jaist\&f=%2Fefont%2F10087%2Fsazanami-20040629.tar.bz2
    $ tar xvf sazanami-20040629.tar.bz2
@@ -31,6 +28,5 @@
    $ chown -R oracle:oinstall ./jdk
    $ zip -r all.jar ./jdk
 
-6. X Window環境で下記項番以降の作業を実施する
-   ORACLE_HOME環境変数を初期化する。
-   $ unset ORACLE_HOME
+5. 自動インストール
+   $ /home/oracle/database/runInstaller -silent -responseFile /home/oracle/db.rsp
