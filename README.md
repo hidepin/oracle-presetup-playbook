@@ -42,15 +42,24 @@
 ・リスナーの状態確認
   $ lsnrctl status
 
-・DBの起動手順
+・インスタンスの起動手順
   (ORACLE_SIDが設定されていること)
   $ sqlplus / as sysdba
   $ startup
 
-・DBの停止手順
+・インスタンスの停止手順
   (ORACLE_SIDが設定されていること)
   $ sqlplus / as sysdba
   $ shutdown
+
+・OEM(Database Control)の起動手順
+  $ emctl start dbconsole
+
+・OEM(Database Control)の停止手順
+  $ emctl stop dbconsole
+
+・OEM(Database Control)の状態確認
+  $ emctl status dbconsole
 
 ・??
   $ dbstart/dbstop
