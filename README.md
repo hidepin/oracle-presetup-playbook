@@ -30,3 +30,28 @@
 
 5. 自動インストール
    $ /home/oracle/database/runInstaller -silent -responseFile /home/oracle/db.rsp
+
+------------------------------------------------------------
+(コマンド)
+・リスナーの起動
+  $ lsnrctl start
+
+・リスナーの停止
+  $ lsnrctl stop
+
+・リスナーの状態確認
+  $ lsnrctl status
+
+・DBの起動手順
+  (ORACLE_SIDが設定されていること)
+  $ sqlplus / as sysdba
+  $ startup
+
+・DBの停止手順
+  (ORACLE_SIDが設定されていること)
+  $ sqlplus / as sysdba
+  $ shutdown
+
+・??
+  $ dbstart/dbstop
+    /etc/oratab
