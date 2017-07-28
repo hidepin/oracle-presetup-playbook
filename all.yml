@@ -4,3 +4,6 @@
   roles:
     - { role: common, when: exec_common_role}
     - oracle
+
+  environment:
+    - "{{ proxy_env }}"
