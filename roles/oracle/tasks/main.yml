@@ -1,5 +1,5 @@
 ---
-# file: roles/oracle-presetup/tasks/main.yml
+# file: roles/oracle/tasks/main.yml
 - name: Add oracle group
   group:
     name={{item}}
