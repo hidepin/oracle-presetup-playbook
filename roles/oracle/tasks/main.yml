@@ -21,6 +21,10 @@
     enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-optional-rpms','') }}"
   with_items:
     - "{{ oracle_pkg }}"
+  register: result
+  until: result | success
+  retries: 3
+  delay: 5
 
 - name: create oracle dir
   file:
