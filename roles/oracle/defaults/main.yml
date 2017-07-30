@@ -1,0 +1,5 @@
+---
+# file: roles/oracle/defaults/main.yml
+oracle_group:
+  - oinstall
+  - dba
