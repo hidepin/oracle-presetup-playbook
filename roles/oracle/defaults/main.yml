@@ -40,6 +40,6 @@ oracle_pkg:
   - libXi.i686
   - make.x86_64
   - sysstat.x86_64
-oracle_group:
-  - oinstall
-  - dba
+# oracle password="oracle123"
+oracle_password: '$6$fHTuBef0dGRrtAyd$MTWncLq31ok3mVi.1Mr5CPV6nf5hPeUlUdm4Fa.F2nuuVMNGw.xqbiu6BRQNlR2QOehCwaFDYGyBwjKBUTEvD/'
+oracle_base: '/u01/app/oracle'

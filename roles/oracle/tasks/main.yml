@@ -2,47 +2,51 @@
 # file: roles/oracle/tasks/main.yml
 - name: Add oracle group
   group:
-    name: "{{item}}"
-  with_items: oracle_group
+    name: "{{ item }}"
+  with_items:
+    - oinstall
+    - dba
 
 - name: Add oracle user
   user:
-    name: "{{item.name}}"
-    password: "{{item.password}}"
-    group: "{{item.group}}"
-    groups: "{{item.groups}}"
-    comment: "{{item.name}}"
-  with_items: oracle_user
+    name: oracle
+    password: "{{ oracle_password }}"
+    group: oinstall
+    groups: dba
 
 - name: oracle packages install
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: present
     enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-optional-rpms','') }}"
   with_items:
     - "{{ oracle_pkg }}"
 
-- name: oracle install directory
-  file: path={{item}} owner=oracle group=oinstall mode=0755 state=directory
+- name: create oracle dir
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    state: directory
   with_items:
-    - /opt/oracle
-    - /opt/oraInventory
-
-- name: sysctl.conf settings
-  template: src=sysctl.conf.j2 dest=/etc/sysctl.conf owner=root group=root mode=0644
-  notify: restart sysctl
-
-- name: limits.conf settings
-  template: src=limits.conf.j2 dest=/etc/security/limits.conf owner=root group=root mode=0644
-
-- name: /etc/pam.d/login settings
-  template: src=etc_pam.d_login.j2 dest=/etc/pam.d/login owner=root group=root mode=0644
+    - { path: "{{ oracle_base }}", owner: 'oracle', group: 'oinstall', mode: '0755' }
 
 - name: /etc/profile.d/enableoracle.sh settings
-  template: src=enableoracle.sh.j2 dest=/etc/profile.d/enableoracle.sh owner=root group=root mode=0644
+  template:
+    src: enableoracle.sh.j2
+    dest: /etc/profile.d/enableoracle.sh
+    owner: root
+    group: root
+    mode: 0644
 
 - name: response file settings
-  template: src={{item}}.j2 dest=/home/oracle/{{item}} owner=oracle group=oinstall mode=0644
+  template:
+    src: "{{ item }}.j2"
+    dest: "/home/oracle/{{ item }}"
+    owner: oracle
+    group: oinstall
+    mode: 0644
   with_items:
     - db.rsp
     - netca.rsp
