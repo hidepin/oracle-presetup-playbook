@@ -34,8 +34,8 @@ oracle_pkg:
   - libX11.i686
   - libXau.x86_64
   - libXau.i686
-  - libXcb.x86_64
-  - libXcb.i686
+  - libxcb.x86_64
+  - libxcb.i686
   - libXi.x86_64
   - libXi.i686
   - make.x86_64
