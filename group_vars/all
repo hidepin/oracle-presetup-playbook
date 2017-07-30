@@ -26,8 +26,8 @@ limits_setting:
   - { domain: 'oracle', type: 'hard', item: 'stack', value: '32768' }
   - { domain: 'oracle', type: 'soft', item: 'nproc', value: '2047' }
   - { domain: 'oracle', type: 'hard', item: 'nproc', value: '16384' }
-  - { domain: '*', type: 'soft', item: 'memlock', value: "{{ ansible_memtotal_mb * 1024 * 0.9|int }}" }
-  - { domain: '*', type: 'hard', item: 'memlock', value: "{{ ansible_memtotal_mb * 1024 * 0.9|int }}"}
+  - { domain: '*', type: 'soft', item: 'memlock', value: "{{ (ansible_memtotal_mb * 1024 * 0.9)|int }}" }
+  - { domain: '*', type: 'hard', item: 'memlock', value: "{{ (ansible_memtotal_mb * 1024 * 0.9)|int }}"}
 tuned_profile: 'default'
 tuned_profile_parameter:
   - section: 'vm'
