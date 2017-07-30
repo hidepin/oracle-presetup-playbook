@@ -48,7 +48,7 @@
     dest: /home/oracle
     remote_src: true
   args:
-    creates: /home/oracle/database
+    creates: /home/oracle/database/install/.oui
   become: true
   become_user: oracle
   with_items:
