@@ -30,7 +30,7 @@
     mode: "{{ item.mode }}"
     state: directory
   with_items:
-    - { path: "{{ oracle_base }}", owner: 'oracle', group: 'oinstall', mode: '0755' }
+    - "{{ oracle_base }}"
 
 - name: /etc/profile.d/enableoracle.sh settings
   template:
