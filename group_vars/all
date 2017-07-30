@@ -1,10 +1,61 @@
-ansible_ssh_user: root
-sudo: no
-colon: ":"
-oracle_group:
-  - oinstall
-  - dba
-oracle_user:
-  # user/password="oracle/oracle123"
-  - { name: 'oracle', password: '$1$peaKxDgL$kmnXC5xCmpjd9wey7uzSq/', group: 'oinstall', groups: 'dba' }
+#proxy_env:
+#  http_proxy: http://172.16.111.1:8080
+#  https_proxy: http://172.16.111.1:8080
+rhel_subscription:
+  username: 'username'
+  password: 'password'
 
+# oracle password="oracle123"
+oracle_password: '$6$fHTuBef0dGRrtAyd$MTWncLq31ok3mVi.1Mr5CPV6nf5hPeUlUdm4Fa.F2nuuVMNGw.xqbiu6BRQNlR2QOehCwaFDYGyBwjKBUTEvD/'
+oracle_sid: 'orcl'
+
+############################################################
+# common role settin
+############################################################
+exec_common_role: True
+
+ntp_server: "192.168.0.1"
+kdump_partition: "/dump"
+generate_host: True
+common_user:
+  # user/password="hidepin/hidepin123"
+  - { name: 'hidepin', password: '$1$SomeSalt$buSRLdQkj4QgWzx.tbjqv1', uid: '1000', group: 'hidepin', gid: '1000' }
+limits_setting:
+  - { domain: 'oracle', type: 'soft', item: 'nofile', value: '1024' }
+  - { domain: 'oracle', type: 'hard', item: 'nofile', value: '65536' }
+  - { domain: 'oracle', type: 'soft', item: 'stack', value: '10240' }
+  - { domain: 'oracle', type: 'hard', item: 'stack', value: '32768' }
+  - { domain: 'oracle', type: 'soft', item: 'nproc', value: '2047' }
+  - { domain: 'oracle', type: 'hard', item: 'nproc', value: '16384' }
+  - { domain: '*', type: 'soft', item: 'memlock', value: "{{ (ansible_memtotal_mb * 1024 * 0.9)|int }}" }
+  - { domain: '*', type: 'hard', item: 'memlock', value: "{{ (ansible_memtotal_mb * 1024 * 0.9)|int }}"}
+tuned_profile: 'default'
+tuned_profile_parameter:
+  - section: 'vm'
+    parameter:
+      - { option: 'transparent_hugepages', value: 'never' }
+  - section: 'disk'
+    parameter:
+      - { option: 'elevator', value: 'deadline' }
+      - { option: 'readahead', value: '128' }
+  - section: 'sysctl'
+    parameter:
+      - { option: 'kernel.shmall', value: '18446744073692774399' }
+      - { option: 'kernel.shmmax', value: '18446744073692774399' }
+      - { option: 'kernel.shmmni', value: '4096' }
+      - { option: 'kernel.sem', value: '250 32000 100 128' }
+      - { option: 'fs.file-max', value: '6815744' }
+      - { option: 'fs.aio-max-nr', value: '1048576' }
+      - { option: 'net.ipv4.ip_local_port_range', value: '9000 64999' }
+      - { option: 'net.core.rmem_default', value: '262144' }
+      - { option: 'net.core.rmem_max', value: '4194304' }
+      - { option: 'net.core.wmem_default', value: '262144' }
+      - { option: 'net.core.wmem_max', value: '1048576' }
+      - { option: 'vm.nr_hugepages', value: '0' }
+kernel_update: True
+update_pkg:
+  - glibc
+  - glibc-common
+  - glibc-devel
+  - glibc-headers
+  - systemd

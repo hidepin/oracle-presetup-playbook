@@ -1,0 +1,84 @@
+---
+# file: roles/oracle/tasks/main.yml
+- name: Add oracle group
+  group:
+    name: "{{ item }}"
+  with_items:
+    - oinstall
+    - dba
+
+- name: Add oracle user
+  user:
+    name: oracle
+    password: "{{ oracle_password }}"
+    group: oinstall
+    groups: dba
+
+- name: oracle packages install
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-optional-rpms','') }}"
+  with_items:
+    - "{{ oracle_pkg }}"
+  register: result
+  until: result | success
+  retries: 3
+  delay: 5
+
+- name: create oracle dir
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    state: directory
+  with_items:
+    - "{{ oracle_base }}"
+
+- name: check oracle files
+  command: "ls -1 {{ oracle_file_dir }}"
+  register: oracle_files
+  changed_when: false
+  failed_when: false
+
+- name: extract oracle files
+  unarchive:
+    src: "{{ oracle_file_dir }}/{{ item }}"
+    dest: /home/oracle
+    remote_src: true
+  args:
+    creates: /home/oracle/database/install/.oui
+  become: true
+  become_user: oracle
+  with_items:
+    - "{{ oracle_files.stdout_lines }}"
+
+- block:
+  - name: dot_bash_profile settings
+    template:
+      src: dot_bash_profile.j2
+      dest: /home/oracle/.bash_profile
+      owner: oracle
+      group: oinstall
+      mode: 0644
+    register: is_dot_bash_profile_setting
+
+  always:
+  - name: oracle backup settings
+    include: backup.yml
+    with_flattened:
+      - "{{ is_dot_bash_profile_setting|default() }}"
+    loop_control:
+      loop_var: backup_item
+
+- name: response file settings
+  template:
+    src: "{{ item }}.j2"
+    dest: "/home/oracle/{{ item }}"
+    owner: oracle
+    group: oinstall
+    mode: 0644
+  with_items:
+    - db.rsp
+    - netca.rsp

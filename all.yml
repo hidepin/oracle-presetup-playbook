@@ -2,5 +2,8 @@
 # file: all.yml
 - hosts: all
   roles:
-    - oracle-presetup
+    - { role: common, when: exec_common_role}
+    - oracle
 
+  environment:
+    - "{{ proxy_env }}"
