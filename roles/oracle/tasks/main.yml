@@ -18,7 +18,7 @@
   yum:
     name: "{{item}}"
     state: present
-    enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-debug-rpms','base-debuginfo') }}"
+    enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-optional-rpms','') }}"
   with_items:
     - "{{ oracle_pkg }}"
 
@@ -31,7 +31,7 @@
 - name: sysctl.conf settings
   template: src=sysctl.conf.j2 dest=/etc/sysctl.conf owner=root group=root mode=0644
   notify: restart sysctl
- 
+
 - name: limits.conf settings
   template: src=limits.conf.j2 dest=/etc/security/limits.conf owner=root group=root mode=0644
 
