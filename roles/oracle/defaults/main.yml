@@ -44,6 +44,6 @@ oracle_pkg:
 oracle_password: '$6$fHTuBef0dGRrtAyd$MTWncLq31ok3mVi.1Mr5CPV6nf5hPeUlUdm4Fa.F2nuuVMNGw.xqbiu6BRQNlR2QOehCwaFDYGyBwjKBUTEvD/'
 oracle_base:
     - { path: "/u01", owner: 'root', group: 'root', mode: '0775' }
-    - { path: "/u01/app", owner: 'root', group: 'root', mode: '0775' }
+    - { path: "/u01/app", owner: 'oracle', group: 'oinstall', mode: '0775' }
     - { path: "/u01/app/oracle", owner: 'oracle', group: 'oinstall', mode: '0775' }
 oracle_file_dir: '/tmp/oracle'
