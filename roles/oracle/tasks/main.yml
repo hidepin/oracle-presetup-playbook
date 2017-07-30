@@ -36,6 +36,24 @@
   with_items:
     - "{{ oracle_base }}"
 
+- name: check oracle files
+  command: "ls -1 {{ oracle_file_dir }}"
+  register: oracle_files
+  changed_when: false
+  failed_when: false
+
+- name: extract oracle files
+  unarchive:
+    src: "{{ oracle_file_dir }}/{{ item }}"
+    dest: /home/oracle
+    remote_src: true
+  args:
+    creates: /home/oracle/database
+  become: true
+  become_user: oracle
+  with_items:
+    - "{{ oracle_files.stdout_lines }}"
+
 - name: /etc/profile.d/enableoracle.sh settings
   template:
     src: enableoracle.sh.j2
