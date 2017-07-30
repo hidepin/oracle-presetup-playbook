@@ -10,3 +10,10 @@ fi
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
+
+umask 022
+export ORACLE_BASE={{ oracle_base[-1].path }}
+export ORACLE_HOME={{ oracle_base[-1].path }}/product/12.1.0/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH
+export LANG=ja_JP.UTF8
+export NLS_LANG=Japanese_Japan.AL32UTF8

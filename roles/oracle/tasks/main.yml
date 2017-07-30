@@ -54,13 +54,23 @@
   with_items:
     - "{{ oracle_files.stdout_lines }}"
 
-- name: /etc/profile.d/enableoracle.sh settings
-  template:
-    src: enableoracle.sh.j2
-    dest: /etc/profile.d/enableoracle.sh
-    owner: root
-    group: root
-    mode: 0644
+- block:
+  - name: dot_bash_profile settings
+    template:
+      src: dot_bash_profile.j2
+      dest: /home/oracle/.bash_profile
+      owner: oracle
+      group: oinstall
+      mode: 0644
+    register: is_dot_bash_profile_setting
+
+  always:
+  - name: oracle backup settings
+    include: backup.yml
+    with_flattened:
+      - "{{ is_dot_bash_profile_setting|default() }}"
+    loop_control:
+      loop_var: backup_item
 
 - name: response file settings
   template:
