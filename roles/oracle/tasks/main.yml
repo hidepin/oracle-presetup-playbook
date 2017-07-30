@@ -2,44 +2,25 @@
 # file: roles/oracle/tasks/main.yml
 - name: Add oracle group
   group:
-    name={{item}}
+    name: "{{item}}"
   with_items: oracle_group
 
 - name: Add oracle user
   user:
-    name="{{item.name}}"
-    password="{{item.password}}"
-    group="{{item.group}}"
-    groups="{{item.groups}}"
-    comment="{{item.name}}"
+    name: "{{item.name}}"
+    password: "{{item.password}}"
+    group: "{{item.group}}"
+    groups: "{{item.groups}}"
+    comment: "{{item.name}}"
   with_items: oracle_user
 
-- name: packages install
-  yum: name={{item}} state=present
+- name: oracle packages install
+  yum:
+    name: "{{item}}"
+    state: present
+    enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-debug-rpms','base-debuginfo') }}"
   with_items:
-    - binutils.x86_64
-    - compat-libcap1.x86_64
-    - compat-libstdc++-33.x86_64
-    - compat-libstdc++-33.i686
-    - gcc.x86_64
-    - gcc-c++.x86_64
-    - glibc.x86_64
-    - glibc.i686
-    - glibc-devel.x86_64
-    - glibc-devel.i686
-    - ksh.x86_64
-    - libgcc.x86_64
-    - libgcc.i686
-    - libstdc++.x86_64
-    - libstdc++.i686
-    - libstdc++-devel.x86_64
-    - libstdc++-devel.i686
-    - libaio.x86_64
-    - libaio.i686
-    - libaio-devel.x86_64
-    - libaio-devel.i686
-    - make.x86_64
-    - sysstat.x86_64
+    - "{{ oracle_pkg }}"
 
 - name: oracle install directory
   file: path={{item}} owner=oracle group=oinstall mode=0755 state=directory
