@@ -40,10 +40,10 @@ tuned_profile_parameter:
       - { option: 'readahead', value: '128' }
   - section: 'sysctl'
     parameter:
-      - { option: 'kernel.shmall', value: '18446744073692774399' }
-      - { option: 'kernel.shmmax', value: '18446744073692774399' }
-      - { option: 'kernel.shmmni', value: '4096' }
       - { option: 'kernel.sem', value: '250 32000 100 128' }
+      - { option: 'kernel.shmmax', value: '18446744073692774399' }
+      - { option: 'kernel.shmall', value: '18446744073692774399' }
+      - { option: 'kernel.shmmni', value: '4096' }
       - { option: 'fs.file-max', value: '6815744' }
       - { option: 'fs.aio-max-nr', value: '1048576' }
       - { option: 'net.ipv4.ip_local_port_range', value: '9000 64999' }
