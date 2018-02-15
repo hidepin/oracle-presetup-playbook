@@ -43,4 +43,4 @@ oracle_base:
     - { path: "/u01", owner: 'root', group: 'root', mode: '0775' }
     - { path: "/u01/app", owner: 'oracle', group: 'oinstall', mode: '0775' }
     - { path: "/u01/app/oracle", owner: 'oracle', group: 'oinstall', mode: '0775' }
-oracle_file_dir: '/tmp/oracle'
+oracle_file_dir: '/home/oracle/oracle_files'

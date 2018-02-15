@@ -1,0 +1,14 @@
+---
+# tasks file for oracle_presetup
+- name: check oracle file
+  local_action: command ls roles/oracle/files/
+  register: st
+  changed_when: False
+
+- name: oracle file message
+  debug:
+    msg:
+      - Not found oracle file.
+      - Please deploy oracle file to "roles/oracle/files/"
+  when: st.stdout == ''
+  failed_when: st.stdout == ''

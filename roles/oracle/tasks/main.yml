@@ -36,11 +36,19 @@
   with_items:
     - "{{ oracle_base }}"
 
-- name: check oracle files
-  command: "ls -1 {{ oracle_file_dir }}"
-  register: oracle_files
-  changed_when: false
-  failed_when: false
+- name: check oracle file
+  local_action: command ls roles/oracle/files/
+  register: st
+  changed_when: False
+
+- name: deploy oracle files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ oracle_file_dir }}/"
+  become: true
+  become_user: oracle
+  with_items:
+    "{{ st.stdout_lines }}"
 
 - name: extract oracle files
   unarchive:
@@ -52,7 +60,7 @@
   become: true
   become_user: oracle
   with_items:
-    - "{{ oracle_files.stdout_lines }}"
+    - "{{ st.stdout_lines }}"
 
 - block:
   - name: dot_bash_profile settings
