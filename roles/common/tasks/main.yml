@@ -15,7 +15,7 @@
     name: "{{ item }}"
     state: present
   register: result
-  until: result | success
+  until: result is success
   retries: 3
   delay: 5
   with_items:
@@ -93,7 +93,7 @@
     name: "{{ item }}"
     state: latest
   register: result
-  until: result | success
+  until: result is success
   retries: 3
   delay: 5
   with_items: "{{ update_pkg }}"
@@ -120,5 +120,6 @@
 - name: reboot after change selinux
   import_tasks: reboot.yml
   when: >
-    ansible_selinux.status is undefined or
-    ansible_selinux.status != "disabled"
+    reboot_enabled and
+    ( ansible_selinux.status is undefined or
+    ansible_selinux.status != "disabled" )

@@ -47,3 +47,6 @@ update_pkg:
 #  - glibc-devel
 #  - glibc-headers
 #  - systemd
+kdump_enabled: True
+reboot_enabled: True
+ipv6_enabled: False
