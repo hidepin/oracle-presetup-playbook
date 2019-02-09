@@ -35,7 +35,7 @@
     mode: "{{ item.mode }}"
     state: directory
   with_items:
-    - "{{ oracle_base }}"
+    - "{{ oracle_base.paths }}"
 
 - name: check oracle file
   local_action: command ls roles/oracle/files/

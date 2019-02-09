@@ -12,8 +12,8 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 export PATH
 
 umask 022
-export ORACLE_BASE={{ oracle_base[-1].path }}
-export ORACLE_HOME={{ oracle_base[-1].path }}/product/12.1.0/dbhome_1
+export ORACLE_BASE={{ oracle_base.base }}
+export ORACLE_HOME={{ oracle_base.base }}/product/12.1.0/dbhome_1
 export ORACLE_SID={{ oracle_sid }}
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib
 export PATH=$ORACLE_HOME/bin:$PATH
