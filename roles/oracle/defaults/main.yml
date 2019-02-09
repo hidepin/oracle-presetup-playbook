@@ -9,6 +9,8 @@ oracle_pkg:
   - compat-libcap1.x86_64
   - compat-libstdc++-33.x86_64
   - compat-libstdc++-33.i686
+  - gcc.x86_64
+  - gcc-c++.x86_64
   - glibc.x86_64
   - glibc.i686
   - glibc-devel.x86_64
@@ -24,23 +26,18 @@ oracle_pkg:
   - libstdc++.i686
   - libstdc++-devel.x86_64
   - libstdc++-devel.i686
-  - libxcb.x86_64
-  - libxcb.i686
-  - libX11.x86_64
-  - libX11.i686
-  - libXau.x86_64
-  - libXau.i686
   - libXi.x86_64
   - libXi.i686
   - libXtst.x86_64
   - libXtst.i686
   - make.x86_64
-  - smartmontools.x86_64
   - sysstat.x86_64
+
 # oracle password="oracle123"
 oracle_password: '$6$fHTuBef0dGRrtAyd$MTWncLq31ok3mVi.1Mr5CPV6nf5hPeUlUdm4Fa.F2nuuVMNGw.xqbiu6BRQNlR2QOehCwaFDYGyBwjKBUTEvD/'
 oracle_base:
     - { path: "/u01", owner: 'root', group: 'root', mode: '0775' }
     - { path: "/u01/app", owner: 'oracle', group: 'oinstall', mode: '0775' }
     - { path: "/u01/app/oracle", owner: 'oracle', group: 'oinstall', mode: '0775' }
+oracle_sid: 'orcl'
 oracle_file_dir: '/home/oracle/oracle_files'

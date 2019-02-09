@@ -6,13 +6,14 @@
   with_items:
     - oinstall
     - dba
+    - oper
 
 - name: Add oracle user
   user:
     name: oracle
     password: "{{ oracle_password }}"
     group: oinstall
-    groups: dba
+    groups: dba,oper
 
 - name: oracle packages install
   yum:
@@ -22,7 +23,7 @@
   with_items:
     - "{{ oracle_pkg }}"
   register: result
-  until: result | success
+  until: result is success
   retries: 3
   delay: 5
 
@@ -56,11 +57,11 @@
     dest: /home/oracle
     remote_src: true
   args:
-    creates: /home/oracle/database/install/.oui
+    creates: /home/oracle/database/runInstaller
   become: true
   become_user: oracle
   with_items:
-    - "{{ st.stdout_lines }}"
+    - "{{ st.stdout_lines|sort(reverse=true) }}"
 
 - block:
   - name: dot_bash_profile settings
@@ -72,21 +73,23 @@
       mode: 0644
     register: is_dot_bash_profile_setting
 
+  - name: response file settings
+    template:
+      src: "{{ item }}.j2"
+      dest: "/home/oracle/{{ item }}"
+      owner: oracle
+      group: oinstall
+      mode: 0644
+    with_items:
+      - db.rsp
+      - netca.rsp
+    register: is_response_file_setting
+
   always:
   - name: oracle backup settings
     include_tasks: backup.yml
     with_flattened:
       - "{{ is_dot_bash_profile_setting|default() }}"
+      - "{{ is_response_file_setting.results|default() }}"
     loop_control:
       loop_var: backup_item
-
-- name: response file settings
-  template:
-    src: "{{ item }}.j2"
-    dest: "/home/oracle/{{ item }}"
-    owner: oracle
-    group: oinstall
-    mode: 0644
-  with_items:
-    - db.rsp
-    - netca.rsp
