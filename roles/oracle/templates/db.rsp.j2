@@ -1,6 +1,6 @@
 
 #-------------------------------------------------------------------------------
-# Do not change the following system generated value. 
+# Do not change the following system generated value.
 #-------------------------------------------------------------------------------
 oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
 
@@ -13,15 +13,15 @@ oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_sch
 oracle.install.option=INSTALL_DB_AND_CONFIG
 
 #-------------------------------------------------------------------------------
-# This variable holds the hostname of the system as set by the user. 
-# It can be used to force the installation to use an alternative   
+# This variable holds the hostname of the system as set by the user.
+# It can be used to force the installation to use an alternative
 # hostname rather than using the first hostname found on the system
 # (e.g., for systems with multiple hostnames and network interfaces).
 #-------------------------------------------------------------------------------
 ORACLE_HOSTNAME={{ansible_fqdn}}
 
 #-------------------------------------------------------------------------------
-# Unix group to be set for the inventory directory.  
+# Unix group to be set for the inventory directory.
 #-------------------------------------------------------------------------------
 UNIX_GROUP_NAME=oinstall
 
@@ -31,52 +31,52 @@ UNIX_GROUP_NAME=oinstall
 INVENTORY_LOCATION=/opt/oraInventory
 
 #-------------------------------------------------------------------------------
-# Specify the languages in which the components will be installed.             
+# Specify the languages in which the components will be installed.
 #
-# en   : English                  ja   : Japanese                  
-# fr   : French                   ko   : Korean                    
-# ar   : Arabic                   es   : Latin American Spanish    
-# bn   : Bengali                  lv   : Latvian                   
-# pt_BR: Brazilian Portuguese     lt   : Lithuanian                
-# bg   : Bulgarian                ms   : Malay                     
-# fr_CA: Canadian French          es_MX: Mexican Spanish           
-# ca   : Catalan                  no   : Norwegian                 
-# hr   : Croatian                 pl   : Polish                    
-# cs   : Czech                    pt   : Portuguese                
-# da   : Danish                   ro   : Romanian                  
-# nl   : Dutch                    ru   : Russian                   
-# ar_EG: Egyptian                 zh_CN: Simplified Chinese        
-# en_GB: English (Great Britain)  sk   : Slovak                    
-# et   : Estonian                 sl   : Slovenian                 
-# fi   : Finnish                  es_ES: Spanish                   
-# de   : German                   sv   : Swedish                   
-# el   : Greek                    th   : Thai                      
-# iw   : Hebrew                   zh_TW: Traditional Chinese       
-# hu   : Hungarian                tr   : Turkish                   
-# is   : Icelandic                uk   : Ukrainian                 
-# in   : Indonesian               vi   : Vietnamese                
-# it   : Italian                                                   
+# en   : English                  ja   : Japanese
+# fr   : French                   ko   : Korean
+# ar   : Arabic                   es   : Latin American Spanish
+# bn   : Bengali                  lv   : Latvian
+# pt_BR: Brazilian Portuguese     lt   : Lithuanian
+# bg   : Bulgarian                ms   : Malay
+# fr_CA: Canadian French          es_MX: Mexican Spanish
+# ca   : Catalan                  no   : Norwegian
+# hr   : Croatian                 pl   : Polish
+# cs   : Czech                    pt   : Portuguese
+# da   : Danish                   ro   : Romanian
+# nl   : Dutch                    ru   : Russian
+# ar_EG: Egyptian                 zh_CN: Simplified Chinese
+# en_GB: English (Great Britain)  sk   : Slovak
+# et   : Estonian                 sl   : Slovenian
+# fi   : Finnish                  es_ES: Spanish
+# de   : German                   sv   : Swedish
+# el   : Greek                    th   : Thai
+# iw   : Hebrew                   zh_TW: Traditional Chinese
+# hu   : Hungarian                tr   : Turkish
+# is   : Icelandic                uk   : Ukrainian
+# in   : Indonesian               vi   : Vietnamese
+# it   : Italian
 #
 # Example : SELECTED_LANGUAGES=en,fr,ja
 #-------------------------------------------------------------------------------
 SELECTED_LANGUAGES=en,ja
 
 #-------------------------------------------------------------------------------
-# Complete path of the Oracle Home  
+# Complete path of the Oracle Home
 #-------------------------------------------------------------------------------
 ORACLE_HOME=/opt/oracle/product/11.2.0/dbhome_1
 
 #-------------------------------------------------------------------------------
-# Complete path of the Oracle Base. 
+# Complete path of the Oracle Base.
 #-------------------------------------------------------------------------------
 ORACLE_BASE=/opt/oracle
 
 #-------------------------------------------------------------------------------
-# Installation Edition of the component.                        
-#                                                             
-# The value should contain only one of these choices.        
-# EE     : Enterprise Edition                                
-# SE     : Standard Edition                                  
+# Installation Edition of the component.
+#
+# The value should contain only one of these choices.
+# EE     : Enterprise Edition
+# SE     : Standard Edition
 # SEONE  : Standard Edition One
 # PE     : Personal Edition (WINDOWS ONLY)
 #-------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ oracle.install.db.InstallEdition=SE
 oracle.install.db.isCustomInstall=false
 
 #-------------------------------------------------------------------------------
-# This property is considered only if 'IsCustomInstall' is set to true 
+# This property is considered only if 'IsCustomInstall' is set to true
 #
 # Description: List of Enterprise Edition Options you would like to install.
 #
@@ -100,7 +100,7 @@ oracle.install.db.isCustomInstall=false
 #              combination of these choices.  The components you choose should
 #              be specified in the form "internal-component-name:version"
 #              Below is a list of components you may specify to install.
-#        
+#
 #              oracle.oraolap:11.2.0.0.2 - Oracle OLAP
 #              oracle.rdbms.dm:11.2.0.0.2 - Oracle Data Mining RDBMS Files
 #              oracle.rdbms.dv:11.2.0.0.2 - Oracle Database Vault option
@@ -119,32 +119,32 @@ oracle.install.db.DBA_GROUP=dba
 oracle.install.db.OPER_GROUP=dba
 
 #-------------------------------------------------------------------------------
-# This variable represents the cluster node names selected by the .  
-# user for installation                                      
+# This variable represents the cluster node names selected by the .
+# user for installation
 #-------------------------------------------------------------------------------
 oracle.install.db.CLUSTER_NODES=
 
 #-------------------------------------------------------------------------------
 # One of the following
-# - GENERAL_PURPOSE                              
-# - TRANSACTION_PROCESSING                       
-# - DATAWAREHOUSE                                
+# - GENERAL_PURPOSE
+# - TRANSACTION_PROCESSING
+# - DATAWAREHOUSE
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
 
 #-------------------------------------------------------------------------------
-# Global Database Name 
+# Global Database Name
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.globalDBName=orcl
 
 #-------------------------------------------------------------------------------
-# The Starter Database SID 
+# The Starter Database SID
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.SID=orcl
 
 #-------------------------------------------------------------------------------
 # Database character set
-#                                               
+#
 #  One of the following
 #  AL32UTF8, WE8ISO8859P15, WE8MSWIN1252, EE8ISO8859P2,
 #  EE8MSWIN1250, NE8ISO8859P10, NEE8ISO8859P4, BLT8MSWIN1257,
@@ -157,7 +157,7 @@ oracle.install.db.config.starterdb.SID=orcl
 oracle.install.db.config.starterdb.characterSet=AL32UTF8
 #-------------------------------------------------------------------------------
 # Specify the total memory allocation for the database. (in MB)
-# Value should be at least 256 MB, and should not exceed the  
+# Value should be at least 256 MB, and should not exceed the
 # total physical memory available on the system.
 # Example: oracle.install.db.config.starterdb.memoryLimit=40
 #-------------------------------------------------------------------------------
@@ -171,9 +171,9 @@ oracle.install.db.config.starterdb.memoryOption=true
 oracle.install.db.config.starterdb.installExampleSchemas=true
 
 #-------------------------------------------------------------------------------
-# This include enabling audit settings, configuring password  
-# profiles and revoking some grants to public. These settings 
-# are provided by default.  You may choose to disable all.    
+# This include enabling audit settings, configuring password
+# profiles and revoking some grants to public. These settings
+# are provided by default.  You may choose to disable all.
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.enableSecuritySettings=true
 
@@ -193,21 +193,21 @@ oracle.install.db.config.starterdb.password.SYSMAN=
 oracle.install.db.config.starterdb.password.DBSNMP=
 
 #-------------------------------------------------------------------------------
-# Can be one of the following 
+# Can be one of the following
 # 1. GRID_CONTROL
 # 2. DB_CONTROL
-# 
+#
 oracle.install.db.config.starterdb.control=DB_CONTROL
 
 #-------------------------------------------------------------------------------
-# Determines the Management Service to use if Grid Control   
-# is selected to manage the database.      
+# Determines the Management Service to use if Grid Control
+# is selected to manage the database.
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.gridcontrol.gridControlServiceURL=
 
 #-------------------------------------------------------------------------------
-# Determines whether to receive email notification for       
-# critical alerts when using DB control.   
+# Determines whether to receive email notification for
+# critical alerts when using DB control.
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
 
@@ -234,17 +234,17 @@ oracle.install.db.config.starterdb.automatedBackup.ospwd=
 oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
 
 #-------------------------------------------------------------------------------
-# Database file location:                  
-# directory for datafiles, control files, redo logs.         
+# Database file location:
+# directory for datafiles, control files, redo logs.
 #
-# Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE 
+# Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oracle/oradata
 
 #-------------------------------------------------------------------------------
-# Backup and recovery location 
+# Backup and recovery location
 #
-# Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE 
+# Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=
 
@@ -256,9 +256,9 @@ oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=
 oracle.install.db.config.asm.diskGroup=
 
 #-------------------------------------------------------------------------------
-# Password for ASMSNMP user of the ASM instance.                  
+# Password for ASMSNMP user of the ASM instance.
 #
-# Applicable only when oracle.install.db.config.starterdb.storage=ASM_STORAGE 
+# Applicable only when oracle.install.db.config.starterdb.storage=ASM_STORAGE
 #-------------------------------------------------------------------------------
 oracle.install.db.config.asm.ASMSNMPPassword=
 
@@ -286,7 +286,7 @@ MYORACLESUPPORT_PASSWORD=
 SECURITY_UPDATES_VIA_MYORACLESUPPORT=false
 
 #------------------------------------------------------------------------------
-# Specify whether user wants to give any proxy details for connection. 
+# Specify whether user wants to give any proxy details for connection.
 # The value can be either true or false. If left blank it will be assumed
 # to be false.
 #
@@ -297,13 +297,13 @@ DECLINE_SECURITY_UPDATES=true
 #------------------------------------------------------------------------------
 # Specify the Proxy server name. Length should be greater than zero.
 #
-# Example    : PROXY_HOST=proxy.domain.com 
+# Example    : PROXY_HOST=proxy.domain.com
 #------------------------------------------------------------------------------
 PROXY_HOST=
 
 #------------------------------------------------------------------------------
 # Specify the proxy port number. Should be Numeric and atleast 2 chars.
 #
-# Example    : PROXY_PORT=25 
+# Example    : PROXY_PORT=25
 #------------------------------------------------------------------------------
 PROXY_PORT=
