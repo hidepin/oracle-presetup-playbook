@@ -18,7 +18,7 @@ oracle.install.option=INSTALL_DB_AND_CONFIG
 # hostname rather than using the first hostname found on the system
 # (e.g., for systems with multiple hostnames and network interfaces).
 #-------------------------------------------------------------------------------
-ORACLE_HOSTNAME={{ansible_fqdn}}
+ORACLE_HOSTNAME={{ ansible_fqdn }}
 
 #-------------------------------------------------------------------------------
 # Unix group to be set for the inventory directory.
@@ -28,7 +28,7 @@ UNIX_GROUP_NAME=oinstall
 #-------------------------------------------------------------------------------
 # Inventory location.
 #-------------------------------------------------------------------------------
-INVENTORY_LOCATION=/opt/oraInventory
+INVENTORY_LOCATION={{ oracle_base.base|replace('/oracle', '') }}/oraInventory
 
 #-------------------------------------------------------------------------------
 # Specify the languages in which the components will be installed.
@@ -64,12 +64,12 @@ SELECTED_LANGUAGES=en,ja
 #-------------------------------------------------------------------------------
 # Complete path of the Oracle Home
 #-------------------------------------------------------------------------------
-ORACLE_HOME=/opt/oracle/product/11.2.0/dbhome_1
+ORACLE_HOME={{ oracle_base.base }}/product/{{ oracle_responsefile.stdout }}/dbhome_1
 
 #-------------------------------------------------------------------------------
 # Complete path of the Oracle Base.
 #-------------------------------------------------------------------------------
-ORACLE_BASE=/opt/oracle
+ORACLE_BASE={{ oracle_base.base }}
 
 #-------------------------------------------------------------------------------
 # Installation Edition of the component.
@@ -135,12 +135,12 @@ oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
 #-------------------------------------------------------------------------------
 # Global Database Name
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.globalDBName=orcl
+oracle.install.db.config.starterdb.globalDBName={{ oracle_sid }}
 
 #-------------------------------------------------------------------------------
 # The Starter Database SID
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.SID=orcl
+oracle.install.db.config.starterdb.SID={{ oracle_sid }}
 
 #-------------------------------------------------------------------------------
 # Database character set
@@ -178,7 +178,7 @@ oracle.install.db.config.starterdb.installExampleSchemas=true
 oracle.install.db.config.starterdb.enableSecuritySettings=true
 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.password.ALL=oracle123
+oracle.install.db.config.starterdb.password.ALL={{ oracle_db_password }}
 
 #-------------------------------------------------------------------------------
 oracle.install.db.config.starterdb.password.SYS=
@@ -239,7 +239,7 @@ oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
 #
 # Applicable only when oracle.install.db.config.starterdb.storage=FILE_SYSTEM_STORAGE
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oracle/oradata
+oracle.install.db.config.starterdb.fileSystemStorage.dataLocation={{ oracle_base.base }}/oradata
 
 #-------------------------------------------------------------------------------
 # Backup and recovery location

@@ -35,6 +35,7 @@ oracle_pkg:
 
 # oracle password="oracle123"
 oracle_password: '$6$fHTuBef0dGRrtAyd$MTWncLq31ok3mVi.1Mr5CPV6nf5hPeUlUdm4Fa.F2nuuVMNGw.xqbiu6BRQNlR2QOehCwaFDYGyBwjKBUTEvD/'
+oracle_db_password: 'oracle123'
 oracle_base:
   base: '/u01/app/oracle'
   paths:
