@@ -44,3 +44,4 @@ oracle_base:
     - { path: "/u01/app/oracle", owner: 'oracle', group: 'oinstall', mode: '0775' }
 oracle_sid: 'orcl'
 oracle_file_dir: '/home/oracle/oracle_files'
+oracle_install_edition: 'SE'
