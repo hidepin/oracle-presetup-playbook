@@ -2,6 +2,7 @@
 # file: all.yml
 - hosts: all
   roles:
+    - oracle_presetup
     - { role: common, when: exec_common_role}
     - oracle
 

@@ -6,23 +6,24 @@
   with_items:
     - oinstall
     - dba
+    - oper
 
 - name: Add oracle user
   user:
     name: oracle
     password: "{{ oracle_password }}"
     group: oinstall
-    groups: dba
+    groups: dba,oper
 
 - name: oracle packages install
   yum:
     name: "{{ item }}"
-    state: present
+    state: latest
     enablerepo: "{{ (ansible_distribution == 'RedHat') | ternary('rhel-7-server-optional-rpms','') }}"
   with_items:
     - "{{ oracle_pkg }}"
   register: result
-  until: result | success
+  until: result is success
   retries: 3
   delay: 5
 
@@ -34,13 +35,21 @@
     mode: "{{ item.mode }}"
     state: directory
   with_items:
-    - "{{ oracle_base }}"
+    - "{{ oracle_base.paths }}"
 
-- name: check oracle files
-  command: "ls -1 {{ oracle_file_dir }}"
-  register: oracle_files
-  changed_when: false
-  failed_when: false
+- name: check oracle file
+  local_action: command ls roles/oracle/files/
+  register: st
+  changed_when: False
+
+- name: deploy oracle files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ oracle_file_dir }}/"
+  become: true
+  become_user: oracle
+  with_items:
+    "{{ st.stdout_lines }}"
 
 - name: extract oracle files
   unarchive:
@@ -48,11 +57,16 @@
     dest: /home/oracle
     remote_src: true
   args:
-    creates: /home/oracle/database/install/.oui
+    creates: /home/oracle/database/runInstaller
   become: true
   become_user: oracle
   with_items:
-    - "{{ oracle_files.stdout_lines }}"
+    - "{{ st.stdout_lines|sort(reverse=true) }}"
+
+- name: check oracle responsefile version
+  shell: grep "^RESPONSEFILE_VERSION" /home/oracle/database/response/dbca.rsp | sed 's/[^"]*"\([^"]*\).*/\1/'
+  register: oracle_responsefile
+  changed_when: False
 
 - block:
   - name: dot_bash_profile settings
@@ -64,21 +78,23 @@
       mode: 0644
     register: is_dot_bash_profile_setting
 
+  - name: response file settings
+    template:
+      src: "{{ item }}.j2"
+      dest: "/home/oracle/{{ item }}"
+      owner: oracle
+      group: oinstall
+      mode: 0644
+    with_items:
+      - db.rsp
+      - netca.rsp
+    register: is_response_file_setting
+
   always:
   - name: oracle backup settings
-    include: backup.yml
+    include_tasks: backup.yml
     with_flattened:
       - "{{ is_dot_bash_profile_setting|default() }}"
+      - "{{ is_response_file_setting.results|default() }}"
     loop_control:
       loop_var: backup_item
-
-- name: response file settings
-  template:
-    src: "{{ item }}.j2"
-    dest: "/home/oracle/{{ item }}"
-    owner: oracle
-    group: oinstall
-    mode: 0644
-  with_items:
-    - db.rsp
-    - netca.rsp

@@ -1,4 +1,4 @@
 ---
 # file: site.yml
-- include: all.yml
+- import_playbook: all.yml
 
