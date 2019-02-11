@@ -6,14 +6,13 @@
   with_items:
     - oinstall
     - dba
-    - oper
 
 - name: Add oracle user
   user:
     name: oracle
     password: "{{ oracle_password }}"
     group: oinstall
-    groups: dba,oper
+    groups: dba
 
 - name: oracle packages install
   yum:
