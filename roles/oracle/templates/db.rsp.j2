@@ -1,5 +1,5 @@
 oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v{{ oracle_responsefile.stdout }}
-oracle.install.option=INSTALL_DB_AND_CONFIG
+oracle.install.option={{ oracle_install_option }}
 ORACLE_HOSTNAME={{ ansible_fqdn }}
 UNIX_GROUP_NAME=oinstall
 INVENTORY_LOCATION={{ oracle_base.base|replace('/oracle', '') }}/oraInventory
