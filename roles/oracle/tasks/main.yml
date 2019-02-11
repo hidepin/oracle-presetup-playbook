@@ -64,7 +64,7 @@
     - "{{ st.stdout_lines|sort(reverse=true) }}"
 
 - name: check oracle responsefile version
-  shell: grep responseFileVersion /home/oracle/database/response/dbca.rsp | sed 's/.*v//'
+  shell: grep responseFileVersion /home/oracle/database/response/*.rsp | sed 's/.*v//'
   register: oracle_responsefile
   changed_when: False
 
