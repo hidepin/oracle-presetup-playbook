@@ -1,30 +1,66 @@
 oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v{{ oracle_responsefile.stdout }}
 oracle.install.option={{ oracle_install_option }}
+{% if oracle_responsefile.stdout < '12' %}
 ORACLE_HOSTNAME={{ ansible_fqdn }}
+{% endif %}
 UNIX_GROUP_NAME=oinstall
 INVENTORY_LOCATION={{ oracle_base.base|replace('/oracle', '') }}/oraInventory
+{% if oracle_responsefile.stdout < '12' %}
 SELECTED_LANGUAGES=en,ja
+{% endif %}
 ORACLE_HOME={{ oracle_base.base }}/product/{{ oracle_responsefile.stdout }}/dbhome_1
 ORACLE_BASE={{ oracle_base.base }}
 oracle.install.db.InstallEdition={{ oracle_install_edition }}
+{% if oracle_responsefile.stdout >= '12' %}
+oracle.install.db.OSDBA_GROUP=dba
+oracle.install.db.OSOPER_GROUP=dba
+oracle.install.db.OSBACKUPDBA_GROUP=dba
+oracle.install.db.OSDGDBA_GROUP=dba
+oracle.install.db.OSKMDBA_GROUP=dba
+oracle.install.db.OSRACDBA_GROUP=dba
+oracle.install.db.rac.configurationType=
+{% endif %}
+{% if oracle_responsefile.stdout < '12' %}
 oracle.install.db.isCustomInstall=false
 oracle.install.db.customComponents=
 oracle.install.db.DBA_GROUP=dba
 oracle.install.db.OPER_GROUP=dba
+{% endif %}
 oracle.install.db.CLUSTER_NODES=
+{% if oracle_responsefile.stdout >= '12' %}
+oracle.install.db.isRACOneInstall=false
+oracle.install.db.racOneServiceName=
+oracle.install.db.rac.serverpoolName=
+oracle.install.db.rac.serverpoolCardinality=0
+{% endif %}
 oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
 oracle.install.db.config.starterdb.globalDBName={{ oracle_sid }}
 oracle.install.db.config.starterdb.SID={{ oracle_sid }}
+{% if oracle_responsefile.stdout >= '12' %}
+oracle.install.db.ConfigureAsContainerDB=false
+oracle.install.db.config.PDBName=
+{% endif %}
 oracle.install.db.config.starterdb.characterSet=AL32UTF8
 oracle.install.db.config.starterdb.memoryLimit={{ oracle_memory_target }}
 oracle.install.db.config.starterdb.memoryOption=true
 oracle.install.db.config.starterdb.installExampleSchemas=true
+{% if oracle_responsefile.stdout < '12' %}
 oracle.install.db.config.starterdb.enableSecuritySettings=true
+{% endif %}
 oracle.install.db.config.starterdb.password.ALL={{ oracle_db_password }}
 oracle.install.db.config.starterdb.password.SYS=
 oracle.install.db.config.starterdb.password.SYSTEM=
+{% if oracle_responsefile.stdout < '12' %}
 oracle.install.db.config.starterdb.password.SYSMAN=
+{% endif %}
 oracle.install.db.config.starterdb.password.DBSNMP=
+{% if oracle_responsefile.stdout >= '12' %}
+oracle.install.db.config.starterdb.password.PDBADMIN=
+oracle.install.db.config.starterdb.managementOption=DEFAULT
+oracle.install.db.config.starterdb.omsHost=
+oracle.install.db.config.starterdb.omsPort=0
+{% endif %}
+{% if oracle_responsefile.stdout < '12' %}
 oracle.install.db.config.starterdb.control=DB_CONTROL
 oracle.install.db.config.starterdb.gridcontrol.gridControlServiceURL=
 oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
@@ -33,6 +69,12 @@ oracle.install.db.config.starterdb.dbcontrol.SMTPServer=
 oracle.install.db.config.starterdb.automatedBackup.enable=false
 oracle.install.db.config.starterdb.automatedBackup.osuid=
 oracle.install.db.config.starterdb.automatedBackup.ospwd=
+{% endif %}
+{% if oracle_responsefile.stdout >= '12' %}
+oracle.install.db.config.starterdb.emAdminUser=
+oracle.install.db.config.starterdb.emAdminPassword=
+oracle.install.db.config.starterdb.enableRecovery=false
+{% endif %}
 oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
 oracle.install.db.config.starterdb.fileSystemStorage.dataLocation={{ oracle_base.base }}/oradata
 oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=
@@ -44,3 +86,8 @@ SECURITY_UPDATES_VIA_MYORACLESUPPORT=false
 DECLINE_SECURITY_UPDATES=true
 PROXY_HOST=
 PROXY_PORT=
+{% if oracle_responsefile.stdout >= '12' %}
+PROXY_USER=
+PROXY_PWD=
+COLLECTOR_SUPPORTHUB_URL=
+{% endif %}
