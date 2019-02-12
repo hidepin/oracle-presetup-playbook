@@ -44,6 +44,6 @@ oracle_base:
     - { path: "/u01/app/oracle", owner: 'oracle', group: 'oinstall', mode: '0775' }
 oracle_sid: 'orcl'
 oracle_file_dir: '/home/oracle/oracle_files'
-oracle_install_edition: 'SE2
+oracle_install_edition: 'SE2'
 oracle_memory_target: 2048
 oracle_install_option: 'INSTALL_DB_AND_CONFIG'
